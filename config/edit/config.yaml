@@ -1,0 +1,42 @@
+details:
+  name: "AuthProviderGO"
+  version: "1.0.0"
+  description: "A simple authentication provider for Go applications."
+
+users:
+  fields:
+    - name: name
+      type: string
+      params:
+        min: 3
+        max: 50
+        identifier: true
+
+    # REQUIRED FIELD
+    - name: email
+      type: string
+      params:
+        identifier: true
+        confirm: true
+
+    # REQUIRED FIELD
+    - name: password
+      type: string
+      params:
+        min: 8
+        max: 50
+        confirm: true
+
+    #========== Optional Fields ==========#
+    # - name: first_name
+    #   type: string
+    #   params:
+    #     min: 3
+    #     max: 50
+
+    # - name: last_name
+    #   type: string
+    #   params:
+    #     min: 3
+    #     max: 50
+    #======================================#
