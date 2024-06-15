@@ -1,5 +1,5 @@
 # AuthProviderGO - A fast and easy way to deploy an authentication provider in Go
-
+<span style="color:red"><b>WARNING:</b></span> This project is not yet ready for production use. It is still in the early stages of development and may contain bugs or security vulnerabilities. Use at your own risk!
 
 ## Table of Contents
 
