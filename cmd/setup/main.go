@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/AgrafeModel/AuthProviderGO/config"
-	database "github.com/AgrafeModel/AuthProviderGO/lib/handlers/database_manager"
+	database "github.com/AgrafeModel/AuthProviderGO/lib/handlers/databasemanager"
 	"github.com/joho/godotenv"
 )
 

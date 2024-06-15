@@ -1,8 +1,11 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/AgrafeModel/AuthProviderGO/config"
 	"github.com/AgrafeModel/AuthProviderGO/lib/handlers"
+	"github.com/AgrafeModel/AuthProviderGO/lib/handlers/databasemanager"
 	"github.com/AgrafeModel/AuthProviderGO/lib/templates"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -15,14 +18,23 @@ func main() {
 
 	err := godotenv.Load(".env")
 	if err != nil {
-		panic("Error loading .env file")
+		panic(fmt.Sprintf("Error loading .env file: %s", err))
 	}
 
 	_, err = config.SetupConfig()
 	if err != nil {
-		panic("Error loading configuration")
+		panic(fmt.Sprintf("Error loading configuration: %s", err))
 	}
 
+	//------- DATABASE SETUP ------- //
+
+	var db = databasemanager.DBManager{}
+	err = db.SetupConnection()
+	if err != nil {
+		panic(fmt.Sprintf("Error setting up database connection: %s", err))
+	}
+
+	//------- GIN SETUP ------- //
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"}, //TODO: Make this configurable

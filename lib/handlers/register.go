@@ -5,11 +5,11 @@ import (
 	"strconv"
 
 	"github.com/AgrafeModel/AuthProviderGO/config"
-	"github.com/AgrafeModel/AuthProviderGO/lib/handlers/database_manager"
+	"github.com/AgrafeModel/AuthProviderGO/lib/handlers/databasemanager"
 	"github.com/gin-gonic/gin"
 )
 
-func HandleRegister(db *database_manager.DBManager, ctx *gin.Context) error {
+func HandleRegister(db *databasemanager.DBManager, ctx *gin.Context) error {
 
 	var data = make(map[string]string)
 	for _, field := range config.Conf.Users.Fields {
