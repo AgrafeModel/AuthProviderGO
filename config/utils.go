@@ -4,14 +4,14 @@ import (
 	"log"
 )
 
-type Field struct {
+type UserField struct {
 	Name   string                 `yaml:"name"`
 	Type   string                 `yaml:"type"`
 	Params map[string]interface{} `yaml:"params"`
 }
 
 type Users struct {
-	Fields []Field `yaml:"fields"`
+	Fields []UserField `yaml:"fields"`
 }
 
 type Details struct {
@@ -54,11 +54,37 @@ func (c *Config) ContainsUserFieldWithType(fieldName, fieldType string) bool {
 	return false
 }
 
-func (c *Config) GetUserField(fieldName string) Field {
+func (c *Config) GetUserField(fieldName string) UserField {
 	for _, field := range c.Users.Fields {
 		if field.Name == fieldName {
 			return field
 		}
 	}
-	return Field{}
+	return UserField{}
+}
+
+func HTMLInputTypeByUserField(field UserField) string {
+	switch field.Type {
+	case "string":
+		switch field.Name {
+		case "password":
+			return "password"
+		case "email", "mail":
+			return "email"
+		case "phone":
+			return "tel"
+		default:
+			return "text"
+		}
+	case "int":
+		return "number"
+	case "bool":
+		return "checkbox"
+	case "date":
+		return "date"
+	case "datetime":
+		return "datetime-local"
+	default:
+		return "text"
+	}
 }

@@ -1,0 +1,43 @@
+package templates
+
+import (
+	"github.com/AgrafeModel/AuthProviderGO/config"
+)
+
+templ Register(conf *config.Config, err error) {
+	<form action="/register" method="post">
+		for _, field := range conf.Users.Fields {
+			<div>
+				<label for={ field.Name }>{ field.Name }</label>
+				<input type={ config.HTMLInputTypeByUserField(field) } name={ field.Name } required/>
+			</div>
+			if val,ok := field.Params["confirm"]; ok &&  val == true {
+				<div>
+					<label for={ field.Name + "_confirm" }>Confirm { field.Name }</label>
+					<input type={ config.HTMLInputTypeByUserField(field) } name={ field.Name + "_confirm" } required/>
+				</div>
+			}
+		}
+		if err != nil {
+			<div>{ err.Error() }</div>
+		}
+		<button type="submit">Register</button>
+		<script type="text/javascript">
+		        (()=>{
+					 const form = document.querySelector('form')
+                     form.onsubmit = (e) => {
+                        const confirmInputs = Array.from(form.querySelectorAll('input[name$="_confirm"]'))
+                        const confirm = confirmInputs.every((input) => {
+                            const name = input.name.replace('_confirm', '')
+                            const originalInput = form.querySelector(`input[name="${name}"]`)
+                            return input.value === originalInput.value
+                        })
+                        if (!confirm) {
+                            e.preventDefault()
+                            alert('The values of the fields do not match')
+                        }
+                     }
+				})()
+		</script>
+	</form>
+}

@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/AgrafeModel/AuthProviderGO/config"
-	"github.com/AgrafeModel/AuthProviderGO/lib/setup/database"
+	database "github.com/AgrafeModel/AuthProviderGO/lib/handlers/database_manager"
 	"github.com/joho/godotenv"
 )
 
@@ -19,6 +19,6 @@ func main() {
 	}
 
 	// Generate the SQL for the users
-	sql := database.ConfigToSQL(*conf)
+	sql := database.ConfigToSQL(conf)
 	println(sql)
 }

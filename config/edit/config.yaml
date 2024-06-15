@@ -25,7 +25,7 @@ users:
       params:
         min: 8
         max: 50
-        confirm: true
+        confirm: false
 
     #========== Optional Fields ==========#
     # - name: first_name
