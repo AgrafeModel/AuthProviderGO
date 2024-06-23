@@ -10,7 +10,6 @@ import (
 )
 
 func HandleRegister(db *databasemanager.DBManager, ctx *gin.Context) error {
-
 	var data = make(map[string]string)
 	for _, field := range config.Conf.Users.Fields {
 		val := ctx.PostForm(field.Name)

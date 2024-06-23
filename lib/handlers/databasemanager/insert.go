@@ -13,14 +13,20 @@ type DBManager struct {
 
 func InsertUserSQL(conf *config.Config) string {
 	sql := "INSERT INTO users ("
-	for _, field := range conf.Users.Fields {
-		sql += field.Name + ", "
+	for i, field := range conf.Users.Fields {
+		sql += field.Name
+		if i < len(conf.Users.Fields)-1 {
+			sql += ", "
+		}
 	}
-	sql += "created_at, updated_at) VALUES ("
-	for range conf.Users.Fields {
-		sql += "?, "
+	sql += ") VALUES ("
+	for i := range conf.Users.Fields {
+		sql += "?"
+		if i < len(conf.Users.Fields)-1 {
+			sql += ", "
+		}
 	}
-	sql += "?, ?);"
+	sql += ");"
 	log.Println(sql)
 	return sql
 }
@@ -37,8 +43,6 @@ func (db *DBManager) InsertUserQuery(data *map[string]string, conf *config.Confi
 	for _, field := range conf.Users.Fields {
 		args = append(args, (*data)[field.Name])
 	}
-
-	args = append(args, "NOW()", "NOW()")
 
 	_, err = stmt.Exec(args...)
 	if err != nil {

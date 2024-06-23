@@ -8,7 +8,6 @@ import (
 )
 
 func (db *DBManager) SetupConnection() error {
-	// Open connection
 	var err error
 
 	db.DB, err = sql.Open("mysql", os.Getenv("DATABASE_URL"))

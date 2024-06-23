@@ -10,13 +10,14 @@ users:
       params:
         min: 3
         max: 50
-        identifier: true
+        unique: true
 
     # REQUIRED FIELD
     - name: email
       type: string
       params:
         identifier: true
+        unique: true
         confirm: true
 
     # REQUIRED FIELD

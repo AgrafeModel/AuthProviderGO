@@ -62,7 +62,7 @@ func main() {
 		c.HTML(200, "register", component)
 	})
 	r.POST("/register", func(c *gin.Context) {
-		err := handlers.HandleRegister(nil, c) //TODO: Implement the database manager
+		err := handlers.HandleRegister(&db, c) //TODO: Implement the database manager
 		if err != nil {
 			component := templates.HTMLPage(config.Conf, templates.Register(config.Conf, err))
 			c.HTML(200, "register", component)
@@ -71,7 +71,10 @@ func main() {
 		}
 	}) // From the client
 
-	r.GET("/authorize", func(c *gin.Context) {})
+	r.GET("/authorize", func(c *gin.Context) {
+		component := templates.HTMLPage(config.Conf, templates.Authorize(config.Conf, nil))
+		c.HTML(200, "authorize", component)
+	})
 	r.POST("/authorize", func(c *gin.Context) {}) // From the client
 
 	//------- TOKEN ENDPOINTS ------- //

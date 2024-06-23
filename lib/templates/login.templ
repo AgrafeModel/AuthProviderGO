@@ -1,0 +1,39 @@
+package templates
+
+import (
+	"github.com/AgrafeModel/AuthProviderGO/config"
+)
+
+templ Authorize(conf *config.Config, err error) {
+	<form action="/authorize" method="post">
+		for _,field := range conf.Users.Fields {
+			if val,ok := field.Params["identifier"]; ok &&  val == true {
+				<div>
+					<label for={ field.Name }>{ field.Name }</label>
+					<input type={ config.HTMLInputTypeByUserField(field) } name={ field.Name } required/>
+				</div>
+			}
+		}
+		<div>
+			<label for="password">Password</label>
+			<input type="password" id="password" name="password"/>
+		</div>
+		if err != nil {
+			<div>{ err.Error() }</div>
+		}
+		<div>
+			<button type="submit">Login</button>
+		</div>
+		<div>
+			<a href="/register">Register</a>
+		</div>
+		<script type="text/javascript">
+		        (()=>{
+					 const form = document.querySelector('form')
+                     form.onsubmit = (e) => {
+
+                     }
+				})()
+		</script>
+	</form>
+}
